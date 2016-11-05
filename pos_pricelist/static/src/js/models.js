@@ -85,6 +85,11 @@ function pos_pricelist_models(instance, module) {
          * @param options
          */
         addProduct: function (product, options) {
+            
+            if (this._printed) {
+                this.destroy();
+                return this.pos.get('selectedOrder').addProduct(product, options);
+            }
             options = options || {};
             var attr = JSON.parse(JSON.stringify(product));
             attr.pos = this.pos;
